@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Recommendations</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        darkBg: '#1F2937',
+                        darkCard: '#374151',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 dark:bg-darkBg transition-colors duration-200">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center text-gray-800 dark:text-white mb-2">Shop Products</h1>
+        <p class="text-center text-gray-600 dark:text-gray-300 mb-8">Find your favorite items by category</p>
+
+        <!-- Category Buttons -->
+        <div class="bg-white dark:bg-darkCard rounded-xl shadow-md p-6 mb-8">
+            <div class="flex flex-wrap gap-3 justify-center" id="categoryButtons">
+                <button class="category-btn active px-4 py-2 rounded-full bg-primary text-white">All</button>
+                <button class="category-btn px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 dark:text-white" data-category="furniture">Furniture</button>
+                <button class="category-btn px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 dark:text-white" data-category="mens-shirts">Men's Shirts</button>
+                <button class="category-btn px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 dark:text-white" data-category="womens-dresses">Women's Dresses</button>
+                <button class="category-btn px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 dark:text-white" data-category="groceries">Groceries</button>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Skeleton Loading (8 items) -->
+            <div class="loading-card h-80 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse-slow"></div>
+            <div class="loading-card h-80 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse-slow"></div>
+            <div class="loading-card h-80 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse-slow"></div>
+            <div class="loading-card h-80 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse-slow"></div>
+        </div>
+    </div>
+
+    <!-- Dark Mode Toggle Button -->
+    <button id="darkModeToggle" class="fixed bottom-6 right-6 bg-gray-800 text-white p-3 rounded-full shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
