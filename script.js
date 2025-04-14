@@ -58,9 +58,6 @@ async function renderProducts(category) {
                         ${product.rating} ★
                     </span>
                 </div>
-                <button class="mt-4 w-full bg-primary hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
-                    View Details
-                </button>
             </div>
         `;
         productGrid.appendChild(productCard);
