@@ -1,63 +1,196 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Recommendations</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#3B82F6',
-                        darkBg: '#1F2937',
-                        darkCard: '#374151',
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Custom CSS -->
+    <title>LUXE - Premium Product Recommendations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-100 dark:bg-darkBg transition-colors duration-200">
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-center text-gray-800 dark:text-white mb-2">Shop Products</h1>
-        <p class="text-center text-gray-600 dark:text-gray-300 mb-8">Find your favorite items by category</p>
+<body>
+    <div class="loader">
+        <div class="loader-spinner"></div>
+    </div>
 
-        <!-- Category Buttons -->
-        <div class="bg-white dark:bg-darkCard rounded-xl shadow-md p-6 mb-8">
-            <div class="flex flex-wrap gap-3 justify-center" id="categoryButtons">
-                <button class="category-btn active px-4 py-2 rounded-full bg-primary text-white">All</button>
-                <button class="category-btn px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 dark:text-white" data-category="furniture">Furniture</button>
-                <button class="category-btn px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 dark:text-white" data-category="mens-shirts">Men's Shirts</button>
-                <button class="category-btn px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 dark:text-white" data-category="womens-dresses">Women's Dresses</button>
-                <button class="category-btn px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 dark:text-white" data-category="groceries">Groceries</button>
+    <header class="glass-header">
+        <div class="header-container">
+            <h1 class="logo">LUXE</h1>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for products..." id="search-input">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+                <button id="voice-btn"><i class="fas fa-microphone"></i></button>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="active">Home</a>
+                <a href="#">Categories</a>
+                <a href="#">Trending</a>
+                <a href="#">Profile</a>
+            </nav>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
             </div>
         </div>
+    </header>
 
-        <!-- Product Grid -->
-        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- Skeleton Loading (8 items) -->
-            <div class="loading-card h-80 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse-slow"></div>
-            <div class="loading-card h-80 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse-slow"></div>
-            <div class="loading-card h-80 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse-slow"></div>
-            <div class="loading-card h-80 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse-slow"></div>
+    <main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <h2>Curated Just For You</h2>
+                <p>Discover products that match your unique style and preferences</p>
+                <div class="cta-buttons">
+                    <button class="primary-btn">Get Started</button>
+                    <button class="secondary-btn">How It Works</button>
+                </div>
+            </div>
+            <div class="hero-scroll-indicator">
+                <span>Scroll</span>
+                <div class="scroll-line"></div>
+            </div>
+        </section>
+
+        <section class="personalized-section">
+            <div class="section-header">
+                <h3>Your Personal Recommendations</h3>
+                <div class="view-controls">
+                    <button class="view-option active" data-view="grid"><i class="fas fa-th"></i></button>
+                    <button class="view-option" data-view="list"><i class="fas fa-list"></i></button>
+                    <button class="view-option" data-view="carousel"><i class="fas fa-grip-horizontal"></i></button>
+                </div>
+            </div>
+            <div class="recommendations-grid" id="products-container">
+                <!-- Products will be loaded here -->
+            </div>
+            <div class="load-more">
+                <button id="load-more-btn">Show More <i class="fas fa-chevron-down"></i></button>
+            </div>
+        </section>
+
+        <section class="categories-section">
+            <h3>Shop By Category</h3>
+            <div class="categories-grid">
+                <div class="category-card" data-category="smartphones">
+                    <div class="category-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h4>Smartphones</h4>
+                </div>
+                <div class="category-card" data-category="laptops">
+                    <div class="category-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h4>Laptops</h4>
+                </div>
+                <div class="category-card" data-category="fragrances">
+                    <div class="category-icon">
+                        <i class="fas fa-spray-can"></i>
+                    </div>
+                    <h4>Fragrances</h4>
+                </div>
+                <div class="category-card" data-category="skincare">
+                    <div class="category-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <h4>Skincare</h4>
+                </div>
+                <div class="category-card" data-category="groceries">
+                    <div class="category-icon">
+                        <i class="fas fa-shopping-basket"></i>
+                    </div>
+                    <h4>Groceries</h4>
+                </div>
+                <div class="category-card" data-category="home-decoration">
+                    <div class="category-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h4>Home Decor</h4>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="glass-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h5>LUXE</h5>
+                <p>Premium product recommendations powered by advanced algorithms.</p>
+            </div>
+            <div class="footer-section">
+                <h5>Quick Links</h5>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h5>Connect With Us</h5>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 LUXE Recommendations. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="product-modal" id="product-modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="modal-body" id="modal-body">
+                <!-- Product details will be loaded here -->
+            </div>
         </div>
     </div>
 
-    <!-- Dark Mode Toggle Button -->
-    <button id="darkModeToggle" class="fixed bottom-6 right-6 bg-gray-800 text-white p-3 rounded-full shadow-lg">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
-    </button>
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will appear here -->
+        </div>
+        <div class="cart-summary">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span class="total-amount">$0.00</span>
+            </div>
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <div class="chatbot-container">
+        <button class="chatbot-toggle">
+            <i class="fas fa-robot"></i>
+        </button>
+        <div class="chatbot-window">
+            <div class="chatbot-header">
+                <h4>LUXE Shopping Assistant</h4>
+                <button class="close-chatbot">&times;</button>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="chatbot-message bot">
+                    <p>Hi there! 👋 I'm your free shopping assistant. Ask me things like:</p>
+                    <ul>
+                        <li>"Show me formal shirts under ₹1000"</li>
+                        <li>"Recommend smartphones with good camera"</li>
+                        <li>"I need a gift for my girlfriend"</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbot-user-input" placeholder="Type your request...">
+                <button id="chatbot-send"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
